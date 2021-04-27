@@ -10,7 +10,7 @@ try {
   const contextData = Parser.parseContext(context);
 
   // Use compareCommits in order to find where README file is located,
-  // want to check members in readme in case a non-kths github is used
+  // want to check members in readme
   getOctokit(core.getInput('token')).repos.compareCommits(contextData)
     .then(response => {
       if (response.status !== 200) throw Error('Could not fetch changed files!');
