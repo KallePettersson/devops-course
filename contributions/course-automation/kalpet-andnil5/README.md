@@ -23,7 +23,7 @@ We want to solve the issue described by baudry in #916.
 * If the kth-ids are valid, set a status check flag to success.
 * If one or more kth-ids are invalid, set the status check flag to failure.
 
-### Requierments for solution to run
+### Requirements for solution to run
 This solution is written with two assumptions in mind. First there needs to be a textfile called **kth-ids.txt** with the email addresses of students registered to the course. The path for this file could be configured in **src/config/config.js**. The file needs to have the following format:
 
 ````
