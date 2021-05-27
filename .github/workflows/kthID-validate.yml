@@ -1,4 +1,4 @@
-on: [pull_request, push] # change to on pullrequest when ready
+on: [pull_request] # change to on pullrequest when ready
 
 jobs:
   validate_student_ids:

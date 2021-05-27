@@ -5,7 +5,6 @@ const Parser = require('./utils/parser');
 try {
   console.log('Retreving valid kthIDs');
   const kthIDs = Parser.parseKTHIdsFile();
-  console.log('idsss..' + kthIDs);
   console.log('Parsing PR payload and repo data.');
   const contextData = Parser.parseContext(context);
 
