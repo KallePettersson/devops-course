@@ -5888,6 +5888,7 @@ module.exports = {
                 ? context.repo.repo : undefined,
     };
     if (!data.base || !data.head || !data.owner || !data.repo) {
+      console.log('Context data....' + data);
       throw Error(`Head, base, owner or repo are missing from the payload for this `+
       `${context.eventName} event. Please submit an issue on this action's GitHub repo.`
       );
@@ -6115,7 +6116,7 @@ const Parser = __nccwpck_require__(332);
 try {
   console.log('Retreving valid kthIDs');
   const kthIDs = Parser.parseKTHIdsFile();
-
+  console.log('idsss..' + kthIDs);
   console.log('Parsing PR payload and repo data.');
   const contextData = Parser.parseContext(context);
 

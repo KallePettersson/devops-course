@@ -36,6 +36,7 @@ module.exports = {
                 ? context.repo.repo : undefined,
     };
     if (!data.base || !data.head || !data.owner || !data.repo) {
+      console.log('Context data....' + data);
       throw Error(`Head, base, owner or repo are missing from the payload for this `+
       `${context.eventName} event. Please submit an issue on this action's GitHub repo.`
       );
