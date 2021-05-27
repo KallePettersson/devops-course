@@ -1,5 +1,6 @@
 # Course automation: Verify PR submitted have GitHub ids and KTH ids matching students registered to the course
 
+
 ## Members
 -----
 Kalle Pettersson (kalpet@kth.se)  
@@ -58,7 +59,8 @@ This solution is written with two assumptions in mind.
 
 
 ### new suggestion 
-*First*, there needs to be a text file called **Registered_KTH_IDs.txt**, including course registered students' use addresses. This file is currently located at `contributions/course-automation/kalpet-andnil5/config/kth-ids.txt`. The path for this file could be configured in **src/config/config.js**. Note that there is a compiled copy of the file in the `dist` folder that is generated at compile time and then used by the action. If you modify the The students' email addresses in the file `kth-ids.txt` must be separated by one or more of the following characters:
+*First*, there needs to be a text file called **Registered_KTH_IDs.txt**, including course registered students' usernames . This file is currently located in the root of this repo. The path for this file could be configured in **src/config/config.js**. 
+**Note**: The usernames in **Registered_KTH_IDs.txt** must be separated by one or more of the following characters:
 * A space character
 * A tab character
 * A carriage return character
@@ -68,11 +70,11 @@ This solution is written with two assumptions in mind.
 * A comma 
 * A semicolon
 
-### Example format for `kth-ids.txt`
+### Example format for `Registered_KTH_IDs.txt`
 ````
 ...
-kthid1@kth.se
-kthid2@kth.se kthid3@kth.se     
+kthid1
+kthid2 kthid3     
 ...
 ````
 
