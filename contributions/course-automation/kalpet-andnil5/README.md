@@ -11,35 +11,42 @@ GitHub: [andnil5](https://github.com/andnil5)
 -----
 
 ## Proposal
-We want to solve the issue described by Baudry in [#916](https://github.com/KTH/devops-course/issues/916): "Check that all PR submitted for the course come from a Github id that corresponds to one KTH id of a student who registered for the course".
+We want to solve the issue described by Baudry in [#916](https://github.com/KTH/devops-course/issues/916): "Check that all PR submitted for the course come from a Github id that corresponds to one KTH-id of a student who registered for the course".
 
 ## Solution:
 * Create a GitHub JavaScript Action to be run on each PR.
 * Reads a list of valid kth ids (from students registered to course).
-* Parse the contributions `README.md` file and extract student kth-ids.
-* Check that the students' kth-ids match the list of valid ids.
-* If the kth-ids are valid, set a status check flag to success.
-* If one or more kth-ids are invalid, set the status check flag to failure.
+* Parse the contribution's `README.md` file and extract the students' kth ids.
+* Check that the students' kth ids match the list of valid ids.
+* If the kth ids are valid, set a status check flag to success.
+* If one or more kth ids are invalid, set the status check flag to failure.
 
-## Source code location
-The actual source code of the implementation can be found on the [course-automation](https://github.com/KallePettersson/devops-course/tree/course-automation) branch in [this](https://github.com/KallePettersson/devops-course/tree/course-automation) repo.
 
-### Test the solution
+## Test the solution
 The GitHub Action is set to be triggered on each Pull Request. We have set up a test branch to ease testing of the workflow. This is done by performing the following steps:
 1. Go to the [Pull requests](https://github.com/KallePettersson/devops-course/pulls) page in the forked repo and click `New pull request`.
-2. Select from repository KallePettersson/devops-course and branch [course-automation](https://github.com/KallePettersson/devops-course/tree/course-automation) to KallePettersson/devops-course and branch [course-automation-test](https://github.com/KallePettersson/devops-course/tree/course-automation-test).
-3. Click on `Create pull request`, and on the next page, click `Create pull request` agian. This will trigger the action.
+2. Select from repository `KallePettersson/devops-course` and branch [course-automation](https://github.com/KallePettersson/devops-course/tree/course-automation) to repository `KallePettersson/devops-course` and branch [course-automation-test](https://github.com/KallePettersson/devops-course/tree/course-automation-test).
+3. Click on `Create pull request`, and on the next page, click `Create pull request` again. This will trigger the action.
 
-### Requirements for solution to run
-This solution is written with two assumptions in mind. First, there needs to be a text file called **kth-ids.txt**, including course registered students' email addresses. The path for this file could be configured in **src/config/config.js**. The file needs to have the following format:
+## Grading - We strive to meet the following grading criteria
 
-````
-...
-Username1@kth.se
-Username2@kth.se
-...
-````
-Note: The students' email addresses must be separated by one or many of the following characters:
+| | Yes | No | Remarkable |
+|---|:-:|:-:|:-:|
+| The work is done before April 6, 2021 (in order to be useful for the course) | X | | |
+| The automation task produces a PR status or issue / PR comment | X | | X |
+| The automation task is reusable | X | | |
+| The task runs on a standard platform | X | | |
+|The task is praised by the other students of this course | X? |  |  |
+| The code for the task is available | X | | X |
+----
+
+## Source code location
+The actual source code of the implementation can be found in the [course-automation branch](https://github.com/KallePettersson/devops-course/tree/course-automation/contributions/course-automation/kalpet-andnil5). The GitHub action workflow file is located in the [`.github/workflow`](https://github.com/KallePettersson/devops-course/tree/course-automation/.github/workflows) folder. The remaining source code is located in the [`course-automation/contributions/course-automation/kalpet-andnil5`](https://github.com/KallePettersson/devops-course/tree/course-automation/contributions/course-automation/kalpet-andnil5) folder.
+
+## Requirements for solution to run
+This solution is written with two assumptions in mind. 
+
+*First*, there needs to be a text file called **kth-ids.txt**, including course registered students' email addresses. This file is currently located at `contributions/course-automation/kalpet-andnil5/config/kth-ids.txt`. The path for this file could be configured in **src/config/config.js**. Note that there is a compiled copy of the file in the `dist` folder that is generated at compile time. You don't have to care about this copy or any other files in this directory. The students' email addresses in the file `kth-ids.txt` must be separated by one or more of the following characters:
 * A space character
 * A tab character
 * A carriage return character
@@ -49,11 +56,19 @@ Note: The students' email addresses must be separated by one or many of the foll
 * A comma 
 * A semicolon
 
-Secondly, each `README.md` file for a given PullRequest needs to placed in the correct folder, as follows:
+### Example format for `kth-ids.txt`
+````
+...
+kthid1@kth.se
+kthid2@kth.se kthid3@kth.se     
+...
+````
+
+*Secondly*, the `README.md` file for a given PullRequest needs to placed in the correct folder, as follows:
 ````
 devops-course/contributions/<Category>/<StudentName(s)>/README.md"
 ````
-And the Members section of the `README.md` file needs to be written with the following syntax:
+And the Members section of the `README.md` file needs to abide by the following format:
 ````
 ## Members
 -----
@@ -65,20 +80,26 @@ Github: [<GithubID2>](<linkToGithubProfile2>)
 
 -----
 ````
-Note: It is crucial to encapsulate the email address with parenthesis and that the opening and closing tags `-----` are present.
+Note: It is crucial to encapsulate the email addresses with parentheses and that the opening and closing tags `-----` are present.
 
-## Contribution
+## How to update and modify the implementation
+
+To change the implementation one has to perform four steps:
+1. Install all necessary dependencies as explained below.
+2. Make your changes.
+3. Compile the files.
+4. Push the changes to GitHub.
 
 ### Installation
-1. Clone this repo (https://github.com/KallePettersson/devops-course.git)  
-2. Checkout course-automation branch
+1. Clone the repository (https://github.com/KallePettersson/devops-course.git)  
+2. Checkout to the course-automation branch
 3. Download and install [Node.js 12.x](https://nodejs.org/en/download/current/), which includes npm.
-4. Cd into `devops-course/contributions/course-automation/kalpet-andnil5/src` and run `npm install`
+4. cd into `devops-course/contributions/course-automation/kalpet-andnil5/src` and run `npm install`
 5. Install `vercel/ncc` by running this command in your terminal: `npm i -g @vercel/ncc`
-6. Now, all tools needed are installed and set up.
+6. Now, all tools needed are installed and set up. Make sure to compile the files after the changes have been made.
 
 ### Compilation
-The GitHub Action files must be compiled into the file `/dist/index.js` to put your changes into action. This can be performed by executing the following command from the `src` folder.
+The GitHub Action files must be compiled into the file `/dist/index.js` to put your changes into action. This can be done by executing the following command from the `devops-course/contributions/course-automation/kalpet-andnil5/src` folder.
 ```
 ncc build index.js -o ../dist
 ```
