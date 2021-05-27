@@ -47,7 +47,7 @@ The actual source code of the implementation can be found in the [course-automat
 ## Requirements for solution to run
 This solution is written with two assumptions in mind. 
 
-*First*, there needs to be a text file called **kth-ids.txt**, including course registered students' email addresses. This file is currently located at `contributions/course-automation/kalpet-andnil5/config/kth-ids.txt`. The path for this file could be configured in **src/config/config.js**. Note that there is a compiled copy of the file in the `dist` folder that is generated at compile time. You don't have to care about this copy or any other files in this directory. The students' email addresses in the file `kth-ids.txt` must be separated by one or more of the following characters:
+*First*, there needs to be a text file called **kth-ids.txt**, including course registered students' email addresses. This file is currently located at `contributions/course-automation/kalpet-andnil5/config/kth-ids.txt`. The path for this file could be configured in **src/config/config.js**. Note that there is a compiled copy of the file in the `dist` folder that is generated at compile time and then used by the action. If you modify the The students' email addresses in the file `kth-ids.txt` must be separated by one or more of the following characters:
 * A space character
 * A tab character
 * A carriage return character

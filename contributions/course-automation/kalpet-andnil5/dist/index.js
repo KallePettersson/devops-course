@@ -1,4 +1,3 @@
-module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -8,49 +7,10 @@ module.exports =
 const { join, resolve } = __nccwpck_require__(622);
 
 module.exports = {
-  KTH_IDS_FILE: __nccwpck_require__.ab + "kth-ids.txt",
+  KTH_IDS_FILE: join(resolve(__dirname), '..', '..', '..', '..', 'Registered_KTH_IDs.txt'),
 };
 
 
-
-/***/ }),
-
-/***/ 953:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(487);
-const { context, getOctokit } = __nccwpck_require__(768);
-const Parser = __nccwpck_require__(332);
-
-try {
-  console.log('Retreving valid kthIDs');
-  const kthIDs = Parser.parseKTHIdsFile();
-
-  console.log('Parsing PR payload and repo data.');
-  const contextData = Parser.parseContext(context);
-
-  // Use compareCommits in order to find where README file is located,
-  // want to check members in readme in case a non-kths github is used
-  getOctokit(core.getInput('token')).repos.compareCommits(contextData)
-    .then(response => {
-      if (response.status !== 200) throw Error('Could not fetch changed files!');
-
-      console.log('Finding README file location');
-      const readme = Parser.parseReadmePath(response);
-      console.log('README File location:', readme, '\n');
-      const ids = Parser.parseKTHEmail(readme);
-      console.log('---------- RESULT: ----------');
-      console.log('KTH-ids found in README:\n', ids);
-      const validIDs = ids.filter(id => kthIDs.includes(id));
-      const invalidIDs = ids.filter(id => !validIDs.includes(id));
-      console.log('Valid KTH-ids found in README:\n', validIDs, '\n');
-      if (invalidIDs.length > 0) throw Error('Invalid KTH-ids in README:', invalidIDs, '\n');
-  }).catch(error => {
-    core.setFailed(error.message);
-  });
-} catch (error) {
-  core.setFailed(error.message);
-}
 
 /***/ }),
 
@@ -5963,8 +5923,9 @@ module.exports = {
     );
     const addresses = memberSection[0].match(/(([\w\d\._%+-]+)@kth.se)/g);
     if (!addresses) throw Error(error('Could not find the kth email addresses.'))
-
-    return addresses
+    // Remove @kth.se from the ids
+    const KTHIds = addresses.map(address => address.substring(0, address.length - 7));
+    return KTHIds;
   },
   /**
    * Retrives valid kthIDs from the file `KTH_IDS_FILE` defined
@@ -6116,8 +6077,9 @@ module.exports = require("zlib");;
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -6142,10 +6104,45 @@ module.exports = require("zlib");;
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	__nccwpck_require__.ab = __dirname + "/";/************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(953);
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+const core = __nccwpck_require__(487);
+const { context, getOctokit } = __nccwpck_require__(768);
+const Parser = __nccwpck_require__(332);
+
+try {
+  console.log('Retreving valid kthIDs');
+  const kthIDs = Parser.parseKTHIdsFile();
+
+  console.log('Parsing PR payload and repo data.');
+  const contextData = Parser.parseContext(context);
+
+  // Use compareCommits in order to find where README file is located,
+  // want to check members in readme
+  getOctokit(core.getInput('token')).repos.compareCommits(contextData)
+    .then(response => {
+      if (response.status !== 200) throw Error('Could not fetch changed files!');
+
+      console.log('Finding README file location');
+      const readme = Parser.parseReadmePath(response);
+      console.log('README File location:', readme, '\n');
+      const ids = Parser.parseKTHEmail(readme);
+      console.log('---------- RESULT: ----------');
+      console.log('KTH-ids found in README:\n', ids);
+      const validIDs = ids.filter(id => kthIDs.includes(id));
+      const invalidIDs = ids.filter(id => !validIDs.includes(id));
+      console.log('Valid KTH-ids found in README:\n', validIDs, '\n');
+      if (invalidIDs.length > 0) throw Error('Invalid KTH-ids in README:', invalidIDs, '\n');
+  }).catch(error => {
+    core.setFailed(error.message);
+  });
+} catch (error) {
+  core.setFailed(error.message);
+}
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;

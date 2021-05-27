@@ -71,8 +71,9 @@ module.exports = {
     );
     const addresses = memberSection[0].match(/(([\w\d\._%+-]+)@kth.se)/g);
     if (!addresses) throw Error(error('Could not find the kth email addresses.'))
-
-    return addresses
+    // Remove @kth.se from the ids
+    const KTHIds = addresses.map(address => address.substring(0, address.length - 7));
+    return KTHIds;
   },
   /**
    * Retrives valid kthIDs from the file `KTH_IDS_FILE` defined
