@@ -43,3 +43,25 @@ The tutorial can be found here: [link](https://www.katacoda.com/kalpet/scenarios
 |The tutorial contains [easter eggs](https://github.com/OrkoHunter/python-easter-eggs) | X |  |  |
 |The tutorial is successful (attracts comments and success) | |  |  |
 |The language is correct | X |  | |
+
+-----
+
+## Repeat feedback and changes:
+### Criteria that can potentially be met(From feedback):
+* background - though the code has been explained in detail, more information about CxxTest and Travis CI is necessary for this task
+    * Added two background sections in the tutorial explaining more about what CxxTest and Travis CI is and how they work.   
+* easy to follow - the tutorial can be made more modular, and can be presented in a more engaging way, involving more Katacoda features (file navigator, cloning a fork from the terminal, all within Katacoda)
+    * Made the tutorial more modular, from 3 big steps to 9 smaller ones.
+    * Removed the use of vim and instead used the file navigator feature.
+    * Used more KataCoda features such as `Copy to editor` code and executable commands.   
+
+### Other improvements(From feedback)
+* Strengthen the link to DevOps.
+    * Added a paragraph in the intro page to streangthen the link to devops
+*  Break the tutorial down into smaller steps, instead of three very big steps.
+    * Made the tutorial more modular, from 3 big steps to 9 smaller ones.
+*  Use the interactive features of Katacoda. For example, it would be better to ask the user to clone a fork of the sample application within Katacoda, then use Katacoda’s file navigator to explain the code.
+    * Used more Katacoda features
+
+### My extra improvments 
+* Added an Easteregg to the tutorial
