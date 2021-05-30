@@ -63,5 +63,5 @@ The tutorial can be found here: [link](https://www.katacoda.com/kalpet/scenarios
 *  Use the interactive features of Katacoda. For example, it would be better to ask the user to clone a fork of the sample application within Katacoda, then use Katacoda’s file navigator to explain the code.
     * Used more Katacoda features
 
-### My extra improvments 
+### My extra improvements 
 * Added an Easteregg to the tutorial
